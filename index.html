@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doenças e Lesões: Prevenção e Tratamento</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .presentation-container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+            min-height: 600px;
+            padding: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .slide.content-slide {
+            background: white;
+            color: #333;
+        }
+        
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 1.8em;
+            margin: 20px 0 15px 0;
+            color: #667eea;
+        }
+        
+        .subtitle {
+            font-size: 1.5em;
+            text-align: center;
+            opacity: 0.9;
+        }
+        
+        .content-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .content-list li {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .content-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-size: 1.5em;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            color: #856404;
+        }
+        
+        .navigation {
+            background: #2c3e50;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .slide-counter {
+            color: white;
+            font-size: 16px;
+        }
+        
+        .table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        
+        .table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .small-text {
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="presentation-container">
+
+        <!-- Slide 1: Título -->
+
+        <div class="slide active">
+
+            <h1>Doenças e Lesões</h1>
+
+            <p class="subtitle">Prevenção e Tratamento através da Atividade Física</p>
+
+            <div class="slide-number">1</div>
+
+        </div>
+
+
+
+        <!-- Slide 2: Índice -->
+
+        <div class="slide content-slide">
+
+            <h2>Índice</h2>
+
+            <div class="two-column">
+
+                <ul class="content-list">
+
+                    <li>Introdução</li>
+
+                    <li>Doenças relacionadas com sedentarismo</li>
+
+                    <li>Tipos de lesões desportivas</li>
+
+                    <li>Atividade física para prevenção</li>
+
+                    <li>Tratamento de lesões</li>
+
+                </ul>
+
+                <ul class="content-list">
+
+                    <li>Riscos da atividade física</li>
+
+                    <li>Estratégias de prevenção</li>
+
+                    <li>Recomendações gerais</li>
+
+                    <li>Conclusão</li>
+
+                </ul>
+
+            </div>
+
+            <div class="slide-number">2</div>
+
+        </div>
+
+
+
+        <!-- Slide 3: Introdução -->
+
+        <div class="slide content-slide">
+
+            <h2>Introdução</h2>
+
+            <ul class="content-list">
+
+                <li>A atividade física é fundamental na prevenção e tratamento de doenças</li>
+
+                <li>A inatividade física é o 4º principal fator de risco de mortalidade global</li>
+
+                <li>Responsável por aproximadamente 3,2 milhões de mortes anuais</li>
+
+                <li>Quando mal praticada, pode representar riscos para a saúde</li>
+
+            </ul>
+
+            <div class="highlight-box">
+
+                <strong>Objetivo:</strong> Explorar a relação entre exercício físico, doenças e lesões, apresentando estratégias baseadas em evidências científicas.
+
+            </div>
+
+            <div class="slide-number">3</div>
+
+        </div>
+
+
+
+        <!-- Slide 4: Doenças Cardiovasculares -->
+
+        <div class="slide content-slide">
+
+            <h2>Doenças Cardiovasculares</h2>
+
+            <h3>Principal causa de morte mundial</h3>
+
+            <ul class="content-list">
+
+                <li><strong>Incluem:</strong> hipertensão arterial, doença coronária, AVC, insuficiência cardíaca</li>
+
+                <li><strong>Causas:</strong> aumento do colesterol LDL, elevação da tensão arterial, acumulação de gordura nas artérias</li>
+
+                <li>O sedentarismo reduz a eficiência cardiovascular</li>
+
+                <li>Cria um ciclo vicioso de diminuição de capacidade física</li>
+
+            </ul>
+
+            <div class="slide-number">4</div>
+
+        </div>
+
+
+
+        <!-- Slide 5: Diabetes e Obesidade -->
+
+        <div class="slide content-slide">
+
+            <h2>Diabetes Tipo 2 e Obesidade</h2>
+
+            <div class="two-column">
+
+                <div class="box">
+
+                    <h4>Diabetes Tipo 2</h4>
+
+                    <ul class="content-list small-text">
+
+                        <li>Resistência à insulina</li>
+
+                        <li>Hiperglicemia crónica</li>
+
+                        <li>Associada à inatividade e obesidade</li>
+
+                        <li>Falta de exercício reduz sensibilidade à insulina</li>
+
+                    </ul>
+
+                </div>
+
+                <div class="box">
+
+                    <h4>Obesidade</h4>
+
+                    <ul class="content-list small-text">
+
+                        <li>Desequilíbrio energético</li>
+
+                        <li>Fator de risco para múltiplas doenças</li>
+
+                        <li>Gordura visceral produz inflamação</li>
+
+                        <li>Impacto psicológico significativo</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="slide-number">5</div>
+
+        </div>
+
+
+
+        <!-- Slide 6: Osteoporose e Saúde Mental -->
+
+        <div class="slide content-slide">
+
+            <h2>Osteoporose e Saúde Mental</h2>
+
+            <div class="two-column">
+
+                <div class="box">
+
+                    <h4>Osteoporose</h4>
+
+                    <ul class="content-list small-text">
+
+                        <li>Perda de densidade óssea</li>
+
+                        <li>Ossos frágeis e suscetíveis a fraturas</li>
+
+                        <li>Prevalente em mulheres pós-menopáusicas</li>
+
+                        <li>Ossos precisam de impacto para se fortalecerem</li>
+
+                    </ul>
+
+                </div>
+
+                <div class="box">
+
+                    <h4>Saúde Mental</h4>
+
+                    <ul class="content-list small-text">
+
+                        <li>Depressão e ansiedade agravadas pela inatividade</li>
+
+                        <li>Exercício liberta endorfinas e serotonina</li>
+
+                        <li>Promove socialização</li>
+
+                        <li>Melhora autoestima e qualidade do sono</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="slide-number">6</div>
+
+        </div>
+
+
+
+        <!-- Slide 7: Lesões Agudas -->
+
+        <div class="slide content-slide">
+
+            <h2>Lesões Agudas</h2>
+
+            <h3>Ocorrem subitamente durante a atividade</h3>
+
+            <ul class="content-list">
+
+                <li><strong>Entorses:</strong> lesão dos ligamentos, comum em tornozelos e joelhos</li>
+
+                <li><strong>Distensões musculares:</strong> alongamento ou rutura de fibras (isquiotibiais, gémeos)</li>
+
+                <li><strong>Fraturas:</strong> quebra óssea por impacto, queda ou stresse</li>
+
+                <li><strong>Luxações:</strong> deslocamento ósseo da articulação (ombro, dedos)</li>
+
+                <li><strong>Contusões:</strong> trauma direto com hemorragia interna</li>
+
+            </ul>
+
+            <div class="slide-number">7</div>
+
+        </div>
+
+
+
+        <!-- Slide 8: Lesões Crónicas -->
+
+        <div class="slide content-slide">
+
+            <h2>Lesões Crónicas (Sobrecarga)</h2>
+
+            <h3>Desenvolvem-se gradualmente por microtraumatismos repetitivos</h3>
+
+            <ul class="content-list">
+
+                <li><strong>Tendinites:</strong> inflamação dos tendões (rotuliana, Aquiles, epicondilite)</li>
+
+                <li><strong>Fascite plantar:</strong> dor intensa no calcanhar, comum em corredores</li>
+
+                <li><strong>Síndrome túnel cárpico:</strong> compressão do nervo mediano no punho</li>
+
+                <li><strong>Síndrome banda iliotibial:</strong> dor externa do joelho em corredores</li>
+
+                <li><strong>Periostite tibial:</strong> "canelite", inflamação do periósteo da tíbia</li>
+
+            </ul>
+
+            <div class="slide-number">8</div>
+
+        </div>
+
+
+
+        <!-- Slide 9: Lesões Específicas -->
+
+        <div class="slide content-slide">
+
+            <h2>Lesões Específicas por Modalidade</h2>
+
+            <table class="table">
+
+                <tr>
+
+                    <th>Lesão</th>
+
+                    <th>Desportos Comuns</th>
+
+                    <th>Características</th>
+
+                </tr>
+
+                <tr>
+
+                    <td><strong>LCA</strong></td>
+
+                    <td>Futebol, basquetebol, esqui</td>
+
+                    <td>Rotações bruscas, requer cirurgia</td>
+
+                </tr>
+
+                <tr>
+
+                    <td><strong>Manguito Rotador</strong></td>
+
+                    <td>Natação, ténis, lançamento</td>
+
+                    <td>Músculos estabilizadores do ombro</td>
+
+                </tr>
+
+                <tr>
+
+                    <td><strong>Concussões</strong></td>
+
+                    <td>Râguebi, boxe, futebol</td>
+
+                    <td>Traumatismo craniano, requer repouso</td>
+
+                </tr>
+
+            </table>
+
+            <div class="slide-number">9</div>
+
+        </div>
+
+
+
+        <!-- Slide 10: Prevenção - Cardiovasculares -->
+
+        <div class="slide content-slide">
+
+            <h2>Prevenção: Doenças Cardiovasculares</h2>
+
+            <h3>Exercícios Aeróbios</h3>
+
+            <ul class="content-list">
+
+                <li>Caminhada rápida, corrida, natação, ciclismo, remo, dança</li>
+
+                <li><strong>Recomendação OMS:</strong> 150 min/semana intensidade moderada OU 75 min/semana intensidade vigorosa</li>
+
+            </ul>
+
+            <div class="box">
+
+                <h4>Benefícios:</h4>
+
+                <ul class="content-list small-text">
+
+                    <li>Redução da tensão arterial (5-10 mmHg)</li>
+
+                    <li>Melhoria do perfil lipídico (↑HDL, ↓LDL)</li>
+
+                    <li>Fortalecimento do músculo cardíaco</li>
+
+                    <li>Redução de 35% no risco de doença coronária</li>
+
+                </ul>
+
+            </div>
+
+            <div class="slide-number">10</div>
+
+        </div>
+
+
+
+        <!-- Slide 11: Prevenção - Diabetes -->
+
+        <div class="slide content-slide">
+
+            <h2>Prevenção: Diabetes Tipo 2</h2>
+
+            <h3>Combinação Estratégica</h3>
+
+            <div class="two-column">
+
+                <div class="box">
+
+                    <h4>Treino Aeróbio</h4>
+
+                    <ul class="content-list small-text">
+
+                        <li>5x por semana</li>
+
+                        <li>30-60 minutos</li>
+
+                        <li>Intensidade moderada</li>
+
+                        <li>Caminhada, ciclismo, natação</li>
+
+                    </ul>
+
+                </div>
+
+                <div class="box">
+
+                    <h4>Treino de Resistência</h4>
+
+                    <ul class="content-list small-text">
+
+                        <li>2-3x por semana</li>
+
+                        <li>Todos os grupos musculares</li>
+
+                        <li>Musculação, bandas elásticas</li>
+
+                        <li>Peso corporal</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="highlight-box">
+
+                <strong>Resultado:</strong> Redução de 58% no risco de desenvolver diabetes tipo 2 em indivíduos com pré-diabetes
+
+            </div>
+
+            <div class="slide-number">11</div>
+
+        </div>
+
+
+
+        <!-- Slide 12: Prevenção - Obesidade e Osteoporose -->
+
+        <div class="slide content-slide">
+
+            <h2>Prevenção: Obesidade e Osteoporose</h2>
+
+            <div class="two-column">
+
+                <div class="box">
+
+                    <h4>Obesidade</h4>
+
+                    <ul class="content-list small-text">
+
+                        <li>Baixo impacto: natação, ciclismo</li>
+
+                        <li>Iniciar: 20-30 min, 3-4x/semana</li>
+
+                        <li>Progredir: até 60 min, diariamente</li>
+
+                        <li>Treino força
