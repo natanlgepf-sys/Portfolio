@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estruturas de Dados - Listas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .section {
+            background: #1a2332;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #2d3e50;
+        }
+        
+        .section-title {
+            color: #4fc3f7;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1e88e5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-content h3 {
+            color: #29b6f6;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .info-content p {
+            line-height: 1.8;
+            color: #b0bec5;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .info-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .info-content li {
+            line-height: 1.8;
+            color: #b0bec5;
+            margin-bottom: 8px;
+        }
+        
+        .info-content strong {
+            color: #64b5f6;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #263238 0%, #37474f 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #1e88e5;
+            color: #b0bec5;
+        }
+        
+        .code-example {
+            background: #0d1117;
+            color: #58a6ff;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+            border: 1px solid #1e88e5;
+        }
+        
+        .complexity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .complexity-table th,
+        .complexity-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #37474f;
+            color: #b0bec5;
+        }
+        
+        .complexity-table th {
+            background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+            color: white;
+        }
+        
+        .complexity-table tr:hover {
+            background: #263238;
+        }
+        
+        .controls {
+            margin-bottom: 20px;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px;
+            border: 2px solid #1e88e5;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #263238;
+            color: #e0e0e0;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #42a5f5;
+            box-shadow: 0 0 10px rgba(30, 136, 229, 0.5);
+        }
+        
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(25, 118, 210, 0.5);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .btn-remove {
+            background: linear-gradient(135deg, #e53935 0%, #b71c1c 100%);
+        }
+        
+        .btn-clear {
+            background: linear-gradient(135deg, #fb8c00 0%, #e65100 100%);
+        }
+        
+        .btn-search {
+            background: linear-gradient(135deg, #00acc1 0%, #006064 100%);
+        }
+        
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .counter {
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .list-items {
+            display: grid;
+            gap: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .list-item {
+            background: linear-gradient(135deg, #263238 0%, #37474f 100%);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease-out;
+            border: 1px solid #455a64;
+        }
+        
+        .list-item.highlight {
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+            transform: scale(1.02);
+            border-color: #42a5f5;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .list-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .item-index {
+            background: #1976d2;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .item-value {
+            font-size: 1.1em;
+            color: #e0e0e0;
+            font-weight: 500;
+        }
+        
+        .item-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #78909c;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #37474f;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #1e88e5;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📋 Estrutura de Dados: Listas</h1>
+
+        <div class="main-content">
+            <!-- PARTE INFORMATIVA -->
+            <div class="section">
+                <h2 class="section-title">📚 Parte Informativa</h2>
+                <div class="info-content">
+                    <h3>O que é uma Lista?</h3>
+                    <p>
+                        Uma Lista é uma estrutura de dados linear e fundamental na ciência da computação que armazena uma coleção ordenada de elementos. Imagina uma fila de pessoas, onde cada pessoa tem uma posição específica - a primeira, segunda, terceira, e assim sucessivamente.
+                        Da mesma forma, uma lista mantém os seus elementos em sequência, permitindo que acedas, adiciones ou removas itens de forma organizada.
+                    </p>
+
+                    <p>
+                        As listas são extremamente versáteis e aparecem em praticamente todas as aplicações que utilizas diariamente. Por exemplo, a lista de reprodução da tua aplicação de música, o histórico do navegador, itens no carrinho de compras online, ou até mesmo os
+                        contactos do teu telemóvel - todos utilizam o conceito de lista.
+                    </p>
+
+                    <p>
+                        Em JavaScript, as listas são implementadas através de <strong>Arrays</strong>, que são objectos especiais projectados para armazenar sequências ordenadas de valores. Uma característica importante é que cada elemento possui um <strong>índice numérico</strong>                        que começa em 0 (zero), não em 1. Portanto, o primeiro elemento está na posição 0, o segundo na posição 1, e assim sucessivamente.
+                    </p>
+
+                    <div class="highlight-box">
+                        <strong>💡 Características Principais:</strong>
+                        <ul>
+                            <li><strong>Ordenada:</strong> Os elementos mantêm uma ordem específica</li>
+                            <li><strong>Indexada:</strong> Acesso directo por índice (começa em 0)</li>
+                            <li><strong>Dinâmica:</strong> Pode crescer ou diminuir de tamanho</li>
+                            <li><strong>Permite duplicados:</strong> Pode ter valores repetidos</li>
+                        </ul>
+                    </div>
+
+                    <h3>Operações Básicas</h3>
+                    <p><strong>1. Inserção:</strong> Adicionar elementos ao final ou em posição específica</p>
+                    <div class="code-example">
+                        // Adiciona no final - O(1)<br> lista.push("Maçã");
+                        <br> // lista = ["Maçã"] índice [0]<br>
+                        <br> // Adiciona no início - O(n)<br> lista.unshift("Uva");
+                        <br> // lista = ["Uva", "Maçã"] índices [0, 1]<br>
+                        <br> // Adiciona no índice 2 - O(n)<br> lista.splice(2, 0, "Banana");<br> // lista = ["Uva", "Maçã", "Banana"] índices [0, 1, 2]
+                    </div>
+
+                    <p><strong>2. Remoção:</strong> Remover elementos por índice ou valor</p>
+                    <div class="code-example">
+                        // Remove do final - O(1)<br> lista.pop();
+                        <br>
+                        <br> // Remove do início - O(n)<br> lista.shift();
+                        <br>
+                        <br> // Remove do índice 1 - O(n)<br> lista.splice(1, 1);
+                    </div>
+
+                    <p><strong>3. Pesquisa:</strong> Procurar elementos na lista</p>
+                    <div class="code-example">
+                        // Retorna o índice - O(n)<br> let indice = lista.indexOf("Maçã");<br>
+                        <br> // Verifica existência - O(n)<br> let existe = lista.includes("Banana");<br>
+                        <br> // Pesquisa com condição - O(n)<br> let item = lista.find(x => x > 10);
+                    </div>
+
+                    <p><strong>4. Acesso:</strong> Obter elemento por índice</p>
+                    <div class="code-example">
+                        // Acede ao primeiro elemento - O(1)<br> let primeiro = lista[0];<br>
+                        <br> // Acede ao último elemento - O(1)<br> let ultimo = lista[lista.length - 1];<br>
+                        <br> // Acede ao elemento no índice 3 - O(1)<br> let elemento = lista[3];
+                    </div>
+
+                    <h3>Complexidade de Tempo</h3>
+                    <table class="complexity-table">
+                        <thead>
+                            <tr>
+                                <th>Operação</th>
+                                <th>Complexidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Acesso por índice</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td>Pesquisa</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td>Inserção no final</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td>Inserção no meio</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td>Remoção</td>
+                                <td>O(n)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Vantagens e Desvantagens</h3>
+                    <div class="highlight-box">
+                        <strong>✅ Vantagens:</strong>
+                        <ul>
+                            <li>Acesso rápido por índice</li>
+                            <li>Fácil de implementar e utilizar</li>
+                            <li>Tamanho dinâmico</li>
+                            <li>Suporta diversos tipos de dados</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>❌ Desvantagens:</strong>
+                        <ul>
+                            <li>Inserção/remoção no meio é dispendiosa</li>
+                            <li>Pesquisa linear pode ser lenta</li>
+                            <li>Pode consumir mais memória</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PARTE PRÁTICA -->
+            <div class="section">
+                <h2 class="section-title">⚙️ Parte Prática</h2>
+
+                <div class="controls">
+                    <div class="input-group">
+                        <input type="text" id="itemInput" placeholder="Introduz um item...">
+                        <button onclick="addItem()">➕ Adicionar</button>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="indexInput" placeholder="Índice" min="0">
+                        <button class="btn-remove" onclick="removeByIndex()">🗑️ Remover</button>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="searchInput" placeholder="Pesquisar item...">
+                        <button class="btn-search" onclick="searchItem()">🔍 Pesquisar</button>
+                        <button class="btn-clear" onclick="clearList()">🧹 Limpar</button>
+                    </div>
+                </div>
+
+                <div id="alertContainer"></div>
+
+                <div class="list-header">
+                    <h3 style="color: #4fc3f7;">Minha Lista</h3>
+                    <div class="counter">
+                        <span id="itemCount">0</span> itens
+                    </div>
+                </div>
+
+                <div id="listItems" class="list-items"></div>
+
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-label">Total</div>
+                        <div class="stat-value" id="totalItems">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Adicionados</div>
+                        <div class="stat-value" id="addedItems">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Removidos</div>
+                        <div class="stat-value" id="removedItems">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Pesquisas</div>
+                        <div class="stat-value" id="searchCount">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let lista = [];
+        let addedCount = 0;
+        let removedCount = 0;
+        let searchCount = 0;
+
+        function showAlert(message, type) {
+            const container = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            container.innerHTML = '';
+            container.appendChild(alert);
+
+            setTimeout(() => {
+                alert.style.opacity = '0';
+                setTimeout(() => container.innerHTML = '', 300);
+            }, 3000);
+        }
+
+        function updateDisplay() {
+            const container = document.getElementById('listItems');
+            const itemCount = document.getElementById('itemCount');
+            const totalItems = document.getElementById('totalItems');
+            const addedItems = document.getElementById('addedItems');
+            const removedItems = document.getElementById('removedItems');
+            const searchCountEl = document.getElementById('searchCount');
+
+            if (lista.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>Lista vazia</h3>
+                        <p>Adiciona itens para começares a praticar!</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = lista.map((item, index) => `
+                    <div class="list-item" id="item-${index}">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="item-index">${index}</div>
+                            <div class="item-value">${item}</div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-small btn-remove" onclick="removeItem(${index})">Remover</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            itemCount.textContent = lista.length;
+            totalItems.textContent = lista.length;
+            addedItems.textContent = addedCount;
+            removedItems.textContent = removedCount;
+            searchCountEl.textContent = searchCount;
+        }
+
+        function addItem() {
+            const input = document.getElementById('itemInput');
+            const value = input.value.trim();
+
+            if (value === '') {
+                showAlert('Por favor, introduz um valor!', 'error');
+                return;
+            }
+
+            lista.push(value);
+            addedCount++;
+            input.value = '';
+            input.focus();
+            updateDisplay();
+            showAlert(`"${value}" adicionado com sucesso!`, 'success');
+        }
+
+        function removeItem(index) {
+            const item = lista[index];
+            lista.splice(index, 1);
+            removedCount++;
+            updateDisplay();
+            showAlert(`"${item}" removido do índice ${index}`, 'info');
+        }
+
+        function removeByIndex() {
+            const input = document.getElementById('indexInput');
+            const index = parseInt(input.value);
+
+            if (isNaN(index)) {
+                showAlert('Introduz um índice válido!', 'error');
+                return;
+            }
+
+            if (index < 0 || index >= lista.length) {
+                showAlert(`Índice inválido! Utiliza entre 0 e ${lista.length - 1}`, 'error');
+                return;
+            }
+
+            const item = lista[index];
+            lista.splice(index, 1);
+            removedCount++;
+            input.value = '';
+            updateDisplay();
+            showAlert(`"${item}" removido do índice ${index}`, 'info');
+        }
+
+        function searchItem() {
+            const input = document.getElementById('searchInput');
+            const value = input.value.trim();
+
+            if (value === '') {
+                showAlert('Introduz algo para pesquisar!', 'error');
+                return;
+            }
+
+            searchCount++;
+            document.getElementById('searchCount').textContent = searchCount;
+
+            const indices = [];
+            lista.forEach((item, index) => {
+                if (item.toLowerCase().includes(value.toLowerCase())) {
+                    indices.push(index);
+                }
+            });
+
+            document.querySelectorAll('.list-item').forEach(el => {
+                el.classList.remove('highlight');
+            });
+
+            if (indices.length > 0) {
+                indices.forEach(index => {
+                    const element = document.getElementById(`item-${index}`);
+                    if (element) {
+                        element.classList.add('highlight');
+                        element.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest'
+                        });
+                    }
+                });
+                showAlert(`Encontrado em ${indices.length} posição(ões): [${indices.join(', ')}]`, 'success');
+            } else {
+                showAlert(`"${value}" não encontrado na lista`, 'error');
+            }
+        }
+
+        function clearList() {
+            if (lista.length === 0) {
+                showAlert('A lista já está vazia!', 'info');
+                return;
+            }
+
+            if (confirm('Tens a certeza que desejas limpar toda a lista?')) {
+                removedCount += lista.length;
+                lista = [];
+                updateDisplay();
+                showAlert('Lista limpa com sucesso!', 'success');
+            }
+        }
+
+        document.getElementById('itemInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addItem();
+        });
+
+        document.getElementById('indexInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') removeByIndex();
+        });
+
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') searchItem();
+        });
+
+        updateDisplay();
+    </script>
+</body>
+
+</html>
